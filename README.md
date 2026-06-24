@@ -41,7 +41,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🗂️ Datasets Utilizados
+## Datasets Utilizados
 
 Para nuestra investigación estrictamente cuantitativa, utilizamos fuentes secundarias validadas:
 
