@@ -1,100 +1,108 @@
-# UNeXt
+Aquí tienes un ejemplo de cómo podrías estructurar tu archivo **README.md** (Rm) adaptado específicamente a tu Trabajo de Investigación Formativa (TIF) de la UNSA, tomando como base la estructura oficial que me proporcionaste pero integrando los datos de tu investigación (como los hiperparámetros de tu `config.yml` y los resultados de tu `log.csv`).
 
-Official Pytorch Code base for [UNeXt: MLP-based Rapid Medical Image Segmentation Network](https://arxiv.org/abs/2203.04967), MICCAI 2022
+---
 
-[Paper](https://arxiv.org/abs/2203.04967) | [Project](https://jeya-maria-jose.github.io/UNext-web/)
+```markdown
+# TIF - UNeXt: Segmentación Rápida de Imágenes Médicas mediante Redes Basadas en MLP
 
-## Introduction
+Repositorio oficial del Trabajo de Investigación Formativa (TIF) para la **Universidad Nacional de San Agustín de Arequipa (UNSA)**, Escuela Profesional de Ciencias de la Computación.
 
-UNet and its latest extensions like TransUNet have been the leading medical image segmentation methods in recent years. However, these networks cannot be effectively adopted for rapid image segmentation in point-of-care applications as they are parameter-heavy, computationally complex and slow to use.  To this end, we propose UNeXt which is a Convolutional multilayer perceptron (MLP) based network for image segmentation. We design UNeXt in an effective way with an early convolutional stage and a MLP stage in the latent stage. We propose a tokenized MLP block where we efficiently tokenize and project the convolutional features and use MLPs to model the representation. To further boost the performance, we propose shifting the channels of the inputs while feeding in to MLPs so as to focus on learning local dependencies. Using tokenized MLPs in latent space reduces the number of parameters and computational complexity while being able to result in a better representation to help segmentation. The network also consists of skip connections between various levels of encoder and decoder.   We test UNeXt on multiple medical image segmentation datasets and show that we reduce the number of parameters by 72x, decrease the computational complexity by 68x, and improve the inference speed by 10x while also obtaining better segmentation performance over the  state-of-the-art medical image segmentation architectures.
+Basado en el modelo original: [UNeXt: MLP-based Rapid Medical Image Segmentation Network](https://arxiv.org/abs/2203.04967).
 
-<p align="center">
-  <img src="imgs/unext.png" width="800"/>
-</p>
+## Introducción
 
+La segmentación de imágenes médicas tradicional con arquitecturas como UNet requiere una gran capacidad computacional. En este proyecto evaluamos e implementamos **UNeXt**, una red basada en perceptrones multicapa (MLP) y convoluciones, diseñada para aplicaciones *point-of-care*. UNeXt reduce significativamente la cantidad de parámetros y la complejidad computacional mediante el uso de bloques *Tokenized MLP* y operaciones de desplazamiento espacial, obteniendo resultados altamente competitivos frente a modelos basados en Transformers.
 
-## Using the code:
+### Autores
 
-The code is stable while using Python 3.6.13, CUDA >=10.1
+* USCCA GIRALDO, JHONATAN BILBAO
+* CERPA GARCÍA, RANDÚ JEAN FRANCO
+* LOPEZ ZEGARRA, IVAN ALEXANDER
 
-- Clone this repository:
+**Docente:** MSc. Jhon F. Bernedo González
+
+---
+
+## Requisitos e Instalación
+
+El código ha sido probado en entornos con `Python 3.6+` y soporte para `CUDA >= 10.1`.
+
+1. Clona este repositorio:
 ```bash
-git clone https://github.com/jeya-maria-jose/UNeXt-pytorch
-cd UNeXt-pytorch
+git clone [https://github.com/tu-usuario/TIF-UNeXt-UNSA.git](https://github.com/tu-usuario/TIF-UNeXt-UNSA.git)
+cd TIF-UNeXt-UNSA
+
 ```
 
-To install all the dependencies using conda:
+2. (Opcional) Crea un entorno virtual e instala las dependencias usando `pip`:
 
 ```bash
-conda env create -f environment.yml
-conda activate unext
-```
-
-If you prefer pip, install following versions:
-
-```bash
-timm==0.3.2
-mmcv-full==1.2.7
-torch==1.7.1
-torchvision==0.8.2
-opencv-python==4.5.1.48
-```
-
-## Datasets
-
-1) ISIC 2018 - [Link](https://challenge.isic-archive.com/data/)
-2) BUSI - [Link](https://www.kaggle.com/aryashah2k/breast-ultrasound-images-dataset)
-
-## Data Format
-
-Make sure to put the files as the following structure (e.g. the number of classes is 2):
+pip install -r requirements.txt
 
 ```
+
+*Dependencias principales: `torch`, `torchvision`, `opencv-python`, `timm`.*
+
+---
+
+## 🗂️ Datasets Utilizados
+
+Para nuestra investigación estrictamente cuantitativa, utilizamos fuentes secundarias validadas:
+
+1. **ISIC 2018** (Lesiones Cutáneas) - [Enlace al Dataset](https://challenge.isic-archive.com/data/)
+2. **BUSI** (Imágenes de Ultrasonido Mamario) - [Enlace al Dataset](https://www.kaggle.com/aryashah2k/breast-ultrasound-images-dataset)
+
+### Formato de Datos
+
+Asegúrate de estructurar las carpetas de los datasets de la siguiente manera:
+
+```text
 inputs
-└── <dataset name>
+└── isic2018
     ├── images
-    |   ├── 001.png
-    │   ├── 002.png
-    │   ├── 003.png
-    │   ├── ...
-    |
+    |   ├── 001.jpg
+    │   ├── 002.jpg
+    │   └── ...
     └── masks
-        ├── 0
-        |   ├── 001.png
-        |   ├── 002.png
-        |   ├── 003.png
-        |   ├── ...
-        |
-        └── 1
+        └── 0
             ├── 001.png
             ├── 002.png
-            ├── 003.png
-            ├── ...
+            └── ...
+
 ```
 
-For binary segmentation problems, just use folder 0.
+*(Nota: Para problemas de segmentación binaria, solo se utiliza la carpeta `0` dentro de `masks`).*
 
-## Training and Validation
+---
 
-1. Train the model.
-```
-python train.py --dataset <dataset name> --arch UNext --name <exp name> --img_ext .png --mask_ext .png --lr 0.0001 --epochs 500 --input_w 512 --input_h 512 --b 8
-```
-2. Evaluate.
-```
-python val.py --name <exp name>
+## 🚀 Entrenamiento y Validación
+
+La configuración del experimento (`primer_experimento`) está parametrizada mediante el archivo `config.yml` utilizando la función de pérdida `BCEDiceLoss` y el optimizador `Adam`.
+
+**1. Entrenar el modelo:**
+Ejecuta el siguiente comando con los hiperparámetros establecidos en la investigación:
+
+```bash
+python train.py --dataset isic2018 --arch UNext --name primer_experimento --img_ext .jpg --mask_ext .png --lr 0.0001 --epochs 100 --input_w 256 --input_h 256 --b 4
+
 ```
 
-### Acknowledgements:
+**2. Evaluar el modelo:**
 
-This code-base uses certain code-blocks and helper functions from [UNet++](https://github.com/4uiiurz1/pytorch-nested-unet), [Segformer](https://github.com/NVlabs/SegFormer), and [AS-MLP](https://github.com/svip-lab/AS-MLP). Naming credits to [Poojan](https://scholar.google.co.in/citations?user=9dhBHuAAAAAJ&hl=en).
+```bash
+python val.py --name primer_experimento
 
-### Citation:
 ```
-@article{valanarasu2022unext,
-  title={UNeXt: MLP-based Rapid Medical Image Segmentation Network},
-  author={Valanarasu, Jeya Maria Jose and Patel, Vishal M},
-  journal={arXiv preprint arXiv:2203.04967},
-  year={2022}
-}
-```
+
+---
+
+## 📊 Resultados Preliminares
+
+Durante el entrenamiento de 100 épocas (registrado en `log.csv`), el modelo demostró una rápida convergencia:
+
+* **Loss inicial (Época 0):** 0.6595
+* **Loss final (Época 86):** 0.1737
+* **IoU Validación Máximo:** ~82.91%
+
+---
+
