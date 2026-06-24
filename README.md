@@ -46,7 +46,7 @@ pip install -r requirements.txt
 Para nuestra investigación estrictamente cuantitativa, utilizamos fuentes secundarias validadas:
 
 1. **ISIC 2018** (Lesiones Cutáneas) - [Enlace al Dataset](https://challenge.isic-archive.com/data/)
-2. **BUSI** (Imágenes de Ultrasonido Mamario) - [Enlace al Dataset](https://www.kaggle.com/aryashah2k/breast-ultrasound-images-dataset)
+
 
 ### Formato de Datos
 
