@@ -1,8 +1,4 @@
-Aquí tienes un ejemplo de cómo podrías estructurar tu archivo **README.md** (Rm) adaptado específicamente a tu Trabajo de Investigación Formativa (TIF) de la UNSA, tomando como base la estructura oficial que me proporcionaste pero integrando los datos de tu investigación (como los hiperparámetros de tu `config.yml` y los resultados de tu `log.csv`).
 
----
-
-```markdown
 # TIF - UNeXt: Segmentación Rápida de Imágenes Médicas mediante Redes Basadas en MLP
 
 Repositorio oficial del Trabajo de Investigación Formativa (TIF) para la **Universidad Nacional de San Agustín de Arequipa (UNSA)**, Escuela Profesional de Ciencias de la Computación.
